@@ -40,6 +40,12 @@ function goToSigupPage() {
 <template>
     <div class="text-center">
         <main class="form-signin w-100 container-sm m-auto mt-4 mw-300">
+            <h3>Survey Task</h3>
+            <p>
+                Developed by <a href="https://www.linkedin.com/in/antonio-lucero-buch/?locale=en_US"
+                    target="_blank">Antonio Lucero</a>
+            </p>
+
             <p class="text-danger" v-if="form.error">
                 {{ form.error }}
             </p>
