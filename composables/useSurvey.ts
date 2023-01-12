@@ -39,10 +39,21 @@ export const useSurvey = () => {
         return data;
     }
 
+    const getMissingResponses = async (surveyId: number | null) => {
+        const data = await $fetch(`${BASE_URL}surveys/getMissingResponses/${surveyId}`, {
+            method: 'get',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${loadSession().token.accessToken}`
+            },
+        });
+        return data;
+    }
 
     return {
         getSurveys,
         completeSurvey,
-        getSurveyResponses
+        getSurveyResponses,
+        getMissingResponses
     }
 }

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 
 import { onMounted } from 'vue';
+const { loadSession } = useSession();
 
 definePageMeta({
     middleware: ['authenticated'],
@@ -13,11 +14,13 @@ const data = reactive({
     loading: false,
     surveyTitle: 'Default Title',
     questions: [],
-    pending: false
+    pending: false,
+    roleId: 2
 });
 
 onMounted(() => {
     getSurvey();
+    data.roleId = loadSession().role_id;
 });
 
 async function getSurvey() {
@@ -124,6 +127,11 @@ async function onSubmit() {
             <div v-if="!data.questions.length && !data.loading" class="mt-4">
                 <h2>Survey results</h2>
                 <SurveyChart />
+            </div>
+
+            <div v-if="!data.questions.length && !data.loading && data.roleId === 1" class="mt-4">
+                <h2>Users who haven't voted yet</h2>
+                <MissingResponses />
             </div>
         </main>
     </div>
