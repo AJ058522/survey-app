@@ -1,17 +1,23 @@
 <script lang="ts" setup>
-const version = 2 + 1
-const config = useAppConfig()
+
+import { onMounted } from 'vue';
+const router = useRouter();
+
+onMounted(() => {
+    router.push({ path: "/login" });
+});
+
 </script>
 
 <template>
-    <div>
-        <h1>{{ config.title }}</h1>
-        <div class="hello">
-            Hello Nuxt {{ version }}!
-        </div>
+    <div class="text-center">
+        <main class="form-signin w-100 m-auto mt-4">
+            <h1>Survey Task</h1>
+            <div class="d-flex justify-content-center mt-4">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </main>
     </div>
 </template>
-
-<style scoped>
-
-</style>

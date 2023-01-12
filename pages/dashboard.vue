@@ -77,6 +77,7 @@ async function onSubmit() {
 </script>
 
 <template>
+    <Navbar />
     <div class="text-center">
         <main class="form-signin w-50 m-auto my-4">
 
