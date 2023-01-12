@@ -80,7 +80,7 @@ async function onSubmit() {
 <template>
     <Navbar />
     <div class="text-center">
-        <main class="form-signin w-50 m-auto my-4">
+        <main class="form-signin w-50 m-auto my-4 mw-50">
 
             <div v-if="data.questions.length && !data.loading" class="mt-4">
 
@@ -160,10 +160,18 @@ async function onSubmit() {
                 <SurveyChart />
             </div>
 
-            <div v-if="!data.questions.length && !data.loading && data.roleId === 1" class="mt-4">
+            <div v-if="!data.questions.length && !data.loading && data.roleId === 1" class="my-4">
                 <h2>Users who haven't voted yet</h2>
                 <MissingResponses />
             </div>
         </main>
     </div>
 </template>
+
+<style scoped>
+@media (max-width: 900px) {
+    .mw-50 {
+        min-width: 90%;
+    }
+}
+</style>

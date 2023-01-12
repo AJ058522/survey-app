@@ -39,7 +39,7 @@ function goToSigupPage() {
 
 <template>
     <div class="text-center">
-        <main class="form-signin w-25 m-auto mt-4">
+        <main class="form-signin w-100 container-sm m-auto mt-4 mw-300">
             <p class="text-danger" v-if="form.error">
                 {{ form.error }}
             </p>
@@ -73,5 +73,7 @@ function goToSigupPage() {
 </template>
 
 <style scoped>
-
+.mw-300 {
+    max-width: 300px;
+}
 </style>

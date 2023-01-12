@@ -46,22 +46,30 @@ async function getUsers() {
     </div>
 
     <div v-if="!data.loading" class="mt-4">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(user, index) in data.data" :key="user['id']">
-                    <th scope="row">{{ index + 1 }}</th>
-                    <td>{{ user['name'] }}</td>
-                    <td>{{ user['email'] }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(user, index) in data.data" :key="user['id']">
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ user['name'] }}</td>
+                        <td>{{ user['email'] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </template>
+
+<style scoped>
+.table-div {
+    max-width: 100%;
+}
+</style>
