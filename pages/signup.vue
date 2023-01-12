@@ -18,8 +18,6 @@ async function onSubmit() {
         form.error = ''
         form.pending = true
         await signup(form.data.name, form.data.email, form.data.password, form.data.password_confirmation);
-        console.log('successfull');
-
         router.push({ path: "/login" });
     }
     catch (error: any) {

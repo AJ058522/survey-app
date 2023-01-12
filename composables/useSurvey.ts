@@ -1,7 +1,7 @@
-const BASE_URL = 'http://127.0.0.1:8000/api/';
-const { loadSession } = useSession();
-
 export const useSurvey = () => {
+
+    const BASE_URL = 'http://127.0.0.1:8000/api/';
+    const { loadSession } = useSession();
 
     const getSurveys = async (surveyId: number | null) => {
         const data = await $fetch(`${BASE_URL}surveys/${surveyId}`, {

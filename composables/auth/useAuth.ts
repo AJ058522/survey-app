@@ -1,6 +1,7 @@
-const BASE_URL = 'http://127.0.0.1:8000/api/';
-
 export const useAuth = () => {
+
+  const BASE_URL = 'http://127.0.0.1:8000/api/';
+  const { loadSession } = useSession();
 
   const login = async (
     email: string,
@@ -18,9 +19,13 @@ export const useAuth = () => {
 
   const logout = async () => {
     const data = await $fetch(`${BASE_URL}auth/logout`, {
-      method: 'POST',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${loadSession().token.accessToken}`
+      },
     });
-
+    return data;
   }
 
   const signup = async (

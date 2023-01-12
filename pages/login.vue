@@ -40,9 +40,6 @@ function goToSigupPage() {
 <template>
     <div class="text-center">
         <main class="form-signin w-25 m-auto mt-4">
-            <div>
-                State: {{ authenticated }}
-            </div>
             <p class="text-danger" v-if="form.error">
                 {{ form.error }}
             </p>
