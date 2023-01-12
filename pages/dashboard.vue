@@ -15,7 +15,8 @@ const data = reactive({
     surveyTitle: 'Default Title',
     questions: [],
     pending: false,
-    roleId: 2
+    roleId: 2,
+    page: 1
 });
 
 onMounted(() => {
@@ -94,25 +95,54 @@ async function onSubmit() {
                 <h4>{{ data.surveyTitle }}</h4>
 
                 <form @submit.prevent="onSubmit">
-                    <div class="mb-3 row" v-for="(question, index) in data.questions"
-                        :key="question['survey_question_id']">
-                        <label for="staticEmail" class="col-sm-8 col-form-label">{{ question['question'] }}</label>
-                        <div class="col-sm-4">
-                            <select name="select" class="form-control" required v-model="question['vote']">
-                                <option value="null" selected disabled>-</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                    <div v-if="data.page === 1">
+                        <div class="mb-3 row" v-for="(question, index) in data.questions.slice(0, 5)"
+                            :key="question['survey_question_id']">
+                            <label for="staticEmail" class="col-sm-8 col-form-label">{{ question['question'] }}</label>
+                            <div class="col-sm-4">
+                                <select name="select" class="form-control" required v-model="question['vote']">
+                                    <option value="null" selected disabled>-</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button class="w-100 btn btn-lg btn-secondary mt-1" type="button" @click="data.page = 2">
+                                Next Page
+                            </button>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <button class="w-100 btn btn-lg btn-primary mt-1" type="submit" :disabled="data.pending">
-                            Vote
-                        </button>
+                    <div v-if="data.page === 2">
+                        <div class="mb-3 row" v-for="(question, index) in data.questions.slice(5, 10)"
+                            :key="question['survey_question_id']">
+                            <label for="staticEmail" class="col-sm-8 col-form-label">{{ question['question'] }}</label>
+                            <div class="col-sm-4">
+                                <select name="select" class="form-control" required v-model="question['vote']">
+                                    <option value="null" selected disabled>-</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button class="w-100 btn btn-lg btn-secondary mt-1" type="button" @click="data.page = 1">
+                                Previous Page
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <button class="w-100 btn btn-lg btn-primary mt-1" type="submit" :disabled="data.pending">
+                                Vote
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
