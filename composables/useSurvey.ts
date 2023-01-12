@@ -28,8 +28,21 @@ export const useSurvey = () => {
         return data;
     }
 
+    const getSurveyResponses = async (surveyId: number | null) => {
+        const data = await $fetch(`${BASE_URL}surveys/getSurveyResponses/${surveyId}`, {
+            method: 'get',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${loadSession().token.accessToken}`
+            },
+        });
+        return data;
+    }
+
+
     return {
         getSurveys,
-        completeSurvey
+        completeSurvey,
+        getSurveyResponses
     }
 }

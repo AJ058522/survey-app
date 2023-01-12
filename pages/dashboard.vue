@@ -11,6 +11,7 @@ const { getSurveys, completeSurvey } = useSurvey();
 const data = reactive({
     error: '',
     loading: false,
+    surveyTitle: 'Default Title',
     questions: [],
     pending: false
 });
@@ -25,9 +26,9 @@ async function getSurvey() {
         data.error = ''
         const response: any = await getSurveys(1);
         data.questions = setFormData(response.survey_questions);
+        data.surveyTitle = response.name;
     }
     catch (error: any) {
-        data.error = "There's no surveys available.";
     }
     finally {
         data.loading = false
@@ -75,16 +76,19 @@ async function onSubmit() {
 <template>
     <div class="text-center">
         <main class="form-signin w-50 m-auto my-4">
-            <div>
-                State: {{ authenticated }}
-                <h1>Dashboard page </h1>
-            </div>
 
-            <div class="alert alert-danger" role="alert" v-if="data.error">
-                {{ data.error }}
-            </div>
+            <div v-if="data.questions.length && !data.loading" class="mt-4">
 
-            <div v-if="data.questions.length" class="mt-4">
+                <div class="alert alert-success" role="alert" v-if="!data.questions.length">
+                    You have completed the survey.
+                </div>
+                <div class="alert alert-danger" role="alert" v-if="data.error">
+                    {{ data.error }}
+                </div>
+
+
+                <h4>{{ data.surveyTitle }}</h4>
+
                 <form @submit.prevent="onSubmit">
                     <div class="mb-3 row" v-for="(question, index) in data.questions"
                         :key="question['survey_question_id']">
@@ -107,6 +111,19 @@ async function onSubmit() {
                         </button>
                     </div>
                 </form>
+            </div>
+
+            <div v-if="data.loading" class="mt-4">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="!data.questions.length && !data.loading" class="mt-4">
+                <h2>Survey results</h2>
+                <SurveyChart />
             </div>
         </main>
     </div>
