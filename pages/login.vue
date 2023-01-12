@@ -3,6 +3,7 @@
 const { login } = useAuth();
 const router = useRouter();
 const { saveSession } = useSession();
+const authenticated = useState('authenticated', () => false)
 
 const form = reactive({
     data: {
@@ -17,8 +18,9 @@ async function onSubmit() {
     try {
         form.error = ''
         form.pending = true
-        const loggedUser: any = await login(form.data.email, form.data.password);
-        saveSession(loggedUser.token.accessToken);
+        const loggedUser = await login(form.data.email, form.data.password);
+        saveSession(loggedUser);
+        authenticated.value = !authenticated.value;
         router.push({ path: "/dashboard" });
     }
     catch (error: any) {
@@ -38,6 +40,9 @@ function goToSigupPage() {
 <template>
     <div class="text-center">
         <main class="form-signin w-25 m-auto mt-4">
+            <div>
+                State: {{ authenticated }}
+            </div>
             <p class="text-danger" v-if="form.error">
                 {{ form.error }}
             </p>
