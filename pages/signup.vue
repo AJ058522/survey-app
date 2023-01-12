@@ -11,6 +11,7 @@ const form = reactive({
     },
     error: '',
     pending: false,
+    success: false
 });
 
 async function onSubmit() {
@@ -18,14 +19,14 @@ async function onSubmit() {
         form.error = ''
         form.pending = true
         await signup(form.data.name, form.data.email, form.data.password, form.data.password_confirmation);
-        router.push({ path: "/login" });
+        form.success = true;
     }
     catch (error: any) {
         if (error.data.message)
             form.error = error.data.message
     }
     finally {
-        form.pending = false
+        form.pending = false;
     }
 }
 </script>
@@ -37,7 +38,11 @@ async function onSubmit() {
                 {{ form.error }}
             </p>
 
-            <form @submit.prevent="onSubmit">
+            <div class="alert alert-success" role="alert" v-if="form.success">
+                Register completed.
+            </div>
+
+            <form @submit.prevent="onSubmit" v-if="!form.success">
                 <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
                 <div class="form-floating mt-1">
@@ -65,12 +70,14 @@ async function onSubmit() {
                     <button class="w-100 btn btn-lg btn-primary mt-1" type="submit" :disabled="form.pending">
                         Sign up
                     </button>
-                    <NuxtLink to="/login" class="mt-1">
-                        Go to login
-                    </NuxtLink>
                 </div>
-
             </form>
+
+            <div class="mt-2">
+                <NuxtLink to="/login">
+                    Go to login
+                </NuxtLink>
+            </div>
         </main>
     </div>
 </template>
