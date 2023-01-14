@@ -1,6 +1,6 @@
 export const useSurvey = () => {
 
-    const BASE_URL = 'http://127.0.0.1:8000/api/';
+    const BASE_URL = 'http://localhost/api/';
     const { loadSession } = useSession();
 
     const getSurveys = async (surveyId: number | null) => {
