@@ -1,6 +1,7 @@
 export const useAuth = () => {
 
-  const BASE_URL = 'http://localhost/api/';
+  const runtimeConfig = useRuntimeConfig()
+  const BASE_URL = runtimeConfig.public.apiBase;
   const { loadSession } = useSession();
 
   const login = async (

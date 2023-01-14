@@ -1,6 +1,7 @@
 export const useSurvey = () => {
 
-    const BASE_URL = 'http://localhost/api/';
+    const runtimeConfig = useRuntimeConfig()
+    const BASE_URL = runtimeConfig.public.apiBase;
     const { loadSession } = useSession();
 
     const getSurveys = async (surveyId: number | null) => {
